@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.services','Dash','Char','Account'])
+angular.module('starter', ['ionic', 'starter.services','Dash','Char','Account','Mine','Add'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -59,6 +59,15 @@ angular.module('starter', ['ionic', 'starter.services','Dash','Char','Account'])
         }
       }
     })
+    .state('tab.add', {
+      url: '/add',
+      views: {
+        'tab-add': {
+          templateUrl: 'templates/tab-add.html',
+          controller: 'addController'
+        }
+      }
+    })
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
       views: {
@@ -77,7 +86,16 @@ angular.module('starter', ['ionic', 'starter.services','Dash','Char','Account'])
         controller: 'AccountCtrl'
       }
     }
-  });
+  })
+    .state('tab.mine',{
+      url:'/mine',
+      views:{
+        'tab-mine':{
+          templateUrl:'templates/tab-mine.html',
+          controller:'mineController'
+        }
+      }
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
