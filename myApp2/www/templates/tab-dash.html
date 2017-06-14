@@ -1,14 +1,22 @@
 <ion-view >
-  <ion-nav-title>
-    <ion-tabs>
-      <ion-tab ng-repeat="tab in tabNav" title="{{tab.title}}" ng-click="getData($index)" ></ion-tab>
+  <ion-nav-bar class="bar-positive nav-title-slide">
+    <ion-nav-title>
+      <ion-tabs>
+        <ion-tab ng-repeat="tab in tabNav" title="{{tab.name}}" ng-click="getData($index)" ></ion-tab>
 
-    </ion-tabs>
-  </ion-nav-title>
-  <ion-content class="padding">
+      </ion-tabs>
+
+    </ion-nav-title>
+  </ion-nav-bar>
+
+
+
+
+  <ion-content class="padding" >
+    <ion-refresher pulling-text="下拉刷新" refreshing-text="刷新成功" on-refresh="doRefresh()"></ion-refresher>
       <ion-list ng-repeat="item in items">
 
-        <ion-item ng-if="item.group.large_image.url_list[0].url || item.group.gifvideo.mp4_url">
+        <ion-item >
           <div class="list card">
 
             <div class="item item-avatar">
@@ -16,84 +24,30 @@
               <span>{{item.group.user.name}}</span>
             </div>
 
-            <div class="item item-body">
-
+            <div class="item item-body" >
               <h2>{{item.group.category_name}}</h2>
-              <!--<video src="{{videoProcessing(item.group.gifvideo.360p_video.url_list[0].url)}}"></video>-->
-              <img class="full-image" ng-if="item.group.large_image.url_list[0].url" ng-src="{{item.group.large_image.url_list[0].url}}">
-              <video class="full-image" ng-if="item.group.gifvideo.mp4_url && item.group.category_name !='爆笑GIF' " ng-src="{{videoProcessing(item.group.gifvideo.mp4_url)}}"></video>
-              <p ng-if="item.group.category_name=='内涵段子' ">{{item.group.content}}</p>
-              <!--<p>-->
-                <!--<a href="#" >-->
-                  <!--<span>{{item.group.user.name}}</span>-->
+              <img class="full-image" ng-if="item.group.large_image.url_list[0].url"  ng-src="{{item.group.large_image.url_list[0].url}}">
+              <video class="full-image" ng-if="item.group.mp4_url" ng-src="{{videoProcessing(item.group.mp4_url)}}"></video>
+              <p >{{item.group.text || item.content}}</p>
 
-                <!--</a>-->
-              <!--</p>-->
+              <div class="item item-avatar" ng-if="item.comments[0]">
+                <img src="{{item.comments[0].user_profile_image_url}}">
+                <span>{{item.comments[0].user_name}}</span>
+                <a href="#" class="subdued  icon ion-thumbsup text-right">  {{item.group.favorite_count}}</a>
+                <a href="#" class="subdued icon ion-thumbsdown text-right">  {{item.group.share_count}}</a>
+                <p>{{item.comments[0].description}}</p>
+              </div>
               <p>
-              <a href="#" class="subdued  icon ion-thumbsup">  {{item.group.favorite_count}}</a>
-              <a href="#" class="subdued icon ion-thumbsdown">  {{item.group.share_count}}</a>
-              <a href="#" class="subdued icon ion-chatbubble-working">  {{item.group.comment_count}}</a>
+              <a href="#" class="subdued  icon ion-thumbsup text-left">  {{item.group.favorite_count}}</a>
+              <a href="#" class="subdued icon ion-thumbsdown text-left">  {{item.group.share_count}}</a>
+               <a href="#" class="subdued icon ion-chatbubble-working text-left">  {{item.group.comment_count}}</a>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="#" class="subdued icon ion-forward ">  {{item.group.repin_count}}</a>
               </p>
             </div>
 
           </div>
         </ion-item>
-        <!--<ion-item ng-if="item.group.category_name='搞笑视频' ">-->
-          <!--<div class="list card">-->
-
-            <!--<div class="item item-avatar">-->
-              <!--<img src="{{item.group.user.avatar_url}}">-->
-              <!--<span>{{item.group.user.name}}</span>-->
-            <!--</div>-->
-
-            <!--<div class="item item-body">-->
-
-              <!--<h2>{{item.group.category_name}}</h2>-->
-              <!--<video class="full-image" src="{{videoProcessing(item.group.gifvideo.mp4_url)}}"></video>-->
-              <!--&lt;!&ndash;<img class="full-image" ng-src="{{item.group.gifvideo.origin_video.url_list[0].url}}">&ndash;&gt;-->
-              <!--<p>-->
-                <!--<a href="#" >-->
-                  <!--<span>{{item.group.user.name}}</span>-->
-
-                <!--</a>-->
-              <!--</p>-->
-              <!--&lt;!&ndash;<p>&ndash;&gt;-->
-              <!--&lt;!&ndash;<a href="#" class="subdued  icon ion-thumbsup">  {{item.group.favorite_count}}</a>&ndash;&gt;-->
-              <!--&lt;!&ndash;<a href="#" class="subdued icon ion-thumbsdown">  {{item.group.comment_count}}</a>&ndash;&gt;-->
-              <!--&lt;!&ndash;</p>&ndash;&gt;-->
-            <!--</div>-->
-
-          <!--</div>-->
-        <!--</ion-item>-->
-
-        <ion-item ng-if="item.group.category_name=='内涵段子' ">
-          <div class="list card">
-
-            <div class="item item-avatar">
-              <img src="{{item.group.user.avatar_url}}">
-              <span>{{item.group.user.name}}</span>
-            </div>
-
-            <div class="item item-body">
-
-              <h2>{{item.group.category_name}}</h2>
-              <!--<video src="{{videoProcessing(item.group.gifvideo.mp4_url)}}"></video>-->
-              <!--<img class="full-image" ng-src="{{item.group.gifvideo.origin_video.url_list[0].url}}">-->
-              <p>
-                {{item.group.content}}
-              </p>
-              <p>
-              <a href="#" class="subdued  icon ion-thumbsup">  {{item.group.favorite_count}}</a>
-              <a href="#" class="subdued icon ion-thumbsdown">  {{item.group.comment_count}}</a>
-              </p>
-            </div>
-
-          </div>
-        </ion-item>
-
-      </ion-list>
-
-  </ion-content>
 
 
 
