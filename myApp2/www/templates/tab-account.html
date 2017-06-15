@@ -1,33 +1,92 @@
-<ion-view view-title="Account">
-  <ion-content delegate-handle="xxx" scrollbar-y="false" on-scroll="onScroll()">
-
-    <p>我是开始</p>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br><br><br>
-    <br><br><br><br><br><br><br>
-    <br>
-    <br>
-    <br><br><br>
-    <p>我是中间的部分</p>
+<ion-view >
 
 
+   <ion-nav-bar>
+     <ion-nav-title>
+
+
+       <ion-tabs class="bar bar-header">
+         <div class="bar bar-header ">
+           <a href="#/app/capture" class="button button-icon icon ion-search"></a>
+           <button class="button button-light" style="margin:0 auto;">
+             <span class="button button-calm"  >热吧</span>
+             <span class="button ">订阅</span>
+           </button>
+
+           <a href="#/app/capture" class="button button-icon icon ion-ios-location-outline"></a>
+         </div>
+       </ion-tabs>
+
+     </ion-nav-title>
+   </ion-nav-bar>
 
 
 
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-    <button class="button button-balanced" ng-click="btnAciton()">店家</button>
-    <br><br><br><br><br><br><br>
-    <br><br><br><br><br>
-    <br><br><br><br><br>
-    <p>我是底部</p>
-    <button class="button button-assertive" ng-click="backToTop()">Top</button>
+
+  <ion-content scroll="true">
+
+
+
+    <ion-slides id="xxx" option="options" slider="data.slider">
+      <ion-slide-page  ng-repeat="banner in bannerList" >
+        <div class="box banner" style="height: 100%;"><img style="width: 100%; height: 100%;" src="{{banner.banner_url.url_list[2].url}}"></div>
+      </ion-slide-page>
+    </ion-slides>
+     <!--<ion-list>-->
+         <!--<ion-item ng-repeat="item in items">-->
+           <!--<img ng-src="{{item.icon_url}}">-->
+           <!--<h2>{{item.name}}</h2>-->
+           <!--<span>{{item.intro}}</span>-->
+           <!--&lt;!&ndash;<button class="button">&ndash;&gt;-->
+            <!--&lt;!&ndash;订阅&ndash;&gt;-->
+           <!--&lt;!&ndash;</button>&ndash;&gt;-->
+         <!--</ion-item>-->
+     <!--</ion-list>-->
+
+    <div class="list">
+
+      <a class="item item-avatar item-button-right" href="#" ng-repeat="item in items">
+        <img src="{{item.icon_url}}">
+        <h2>{{item.name}}</h2>
+        <span>{{item.intro}}</span>
+        <br>
+        <span class="col-10"> <i>{{item.subscribe_count}} 订阅 | 总贴数 {{item.total_updates}}</i> </span>
+        <button class="button">
+          订阅
+        </button>
+      </a>
+
+
+    </div>
+
+
+    <!--<p>我是开始</p>-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--<br><br><br>-->
+    <!--<br><br><br><br><br><br><br>-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--<br><br><br>-->
+    <!--<p>我是中间的部分</p>-->
+
+
+
+
+
+    <!--<ion-list>-->
+    <!--<ion-toggle  ng-model="settings.enableFriends">-->
+        <!--Enable Friends-->
+    <!--</ion-toggle>-->
+    <!--</ion-list>-->
+    <!--<button class="button button-balanced" ng-click="btnAciton()">店家</button>-->
+    <!--<br><br><br><br><br><br><br>-->
+    <!--<br><br><br><br><br>-->
+    <!--<br><br><br><br><br>-->
+    <!--<p>我是底部</p>-->
+    <!--<button class="button button-assertive" ng-click="backToTop()">Top</button>-->
   </ion-content>
 </ion-view>

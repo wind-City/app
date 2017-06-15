@@ -16,7 +16,7 @@
     <ion-refresher pulling-text="下拉刷新" refreshing-text="刷新成功" on-refresh="doRefresh()"></ion-refresher>
       <ion-list ng-repeat="item in items">
 
-        <ion-item >
+        <ion-item  >
           <div class="list card">
 
             <div class="item item-avatar">
@@ -24,17 +24,21 @@
               <span>{{item.group.user.name}}</span>
             </div>
 
-            <div class="item item-body" >
+            <div class="item item-body item-button-right" >
               <h2>{{item.group.category_name}}</h2>
               <img class="full-image" ng-if="item.group.large_image.url_list[0].url"  ng-src="{{item.group.large_image.url_list[0].url}}">
+              <!--<img class="full-image" ng-if="item.group.large_image.url_list[0].url"  ng-src="{{item.group.large_image.url_list[0].url}}">-->
               <video class="full-image" ng-if="item.group.mp4_url" ng-src="{{videoProcessing(item.group.mp4_url)}}"></video>
               <p >{{item.group.text || item.content}}</p>
 
               <div class="item item-avatar" ng-if="item.comments[0]">
                 <img src="{{item.comments[0].user_profile_image_url}}">
-                <span>{{item.comments[0].user_name}}</span>
-                <a href="#" class="subdued  icon ion-thumbsup text-right">  {{item.group.favorite_count}}</a>
-                <a href="#" class="subdued icon ion-thumbsdown text-right">  {{item.group.share_count}}</a>
+                <h6>{{item.comments[0].user_name}}</h6>
+                <button>
+                  <a href="#" class="subdued  icon ion-thumbsup text-right">  {{item.group.favorite_count}}</a>
+                  <a href="#" class="subdued icon ion-thumbsdown text-right">  {{item.group.share_count}}</a>
+                </button>
+
                 <p>{{item.comments[0].description}}</p>
               </div>
               <p>
@@ -48,7 +52,9 @@
 
           </div>
         </ion-item>
-
+      </ion-list>
+    <ion-infinite-scroll immediate-check="false"  on-infinite="loadMore()" distance="1%" ></ion-infinite-scroll>
+  </ion-content>
 
 
 </ion-view>

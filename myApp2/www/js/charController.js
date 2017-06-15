@@ -15,4 +15,5 @@ angular.module('Char',[])
   })
   .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
     $scope.chat = Chats.get($stateParams.chatId);
+    console.log($scope.chat);
   })
